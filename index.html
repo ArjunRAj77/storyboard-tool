@@ -16,6 +16,13 @@
   <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(event)">
   <button onclick="window.print()">Print / Save as PDF</button>
   <button onclick="newProject()">New project</button>
+  <label class="grid-ctl">Grid
+    <select id="gridSize" onchange="setGrid(+this.value)">
+      <option value="2">2 / row</option>
+      <option value="3">3 / row</option>
+      <option value="4" selected>4 / row</option>
+    </select>
+  </label>
 </header>
 <div class="hint">Draw directly on each frame (mouse or touch). Everything autosaves in this browser.
 Export JSON to archive or move a project; Import to load it back. Print = PDF storyboard.</div>

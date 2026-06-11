@@ -9,6 +9,15 @@ const STORAGE_KEY = "storyboard";
 let state = { title: "Untitled Project", panels: [] };
 let tool = "pen", brush = 3;
 
+/* ---- grid size (UI preference, 2–4 columns, default 4) ---- */
+const GRID_KEY = "storyboard-grid";
+function setGrid(n){
+  n = Math.min(4, Math.max(2, n || 4));
+  document.documentElement.style.setProperty("--cols", n);
+  document.getElementById("gridSize").value = n;
+  try { localStorage.setItem(GRID_KEY, n); } catch(e){}
+}
+
 function blankPanel(){
   return { shot:"", size:"MS", lens:"35mm", move:"Locked", dur:"4s", notes:"", dialogue:"", img:null };
 }
@@ -131,6 +140,7 @@ document.getElementById("title").addEventListener("change", save);
 
 /* ---- boot: restore session, else try bundled example, else blank ---- */
 (function boot(){
+  try { setGrid(+localStorage.getItem(GRID_KEY) || 4); } catch(e){ setGrid(4); }
   try {
     const s = localStorage.getItem(STORAGE_KEY);
     if (s){ state = JSON.parse(s); }

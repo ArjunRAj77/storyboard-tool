@@ -12,7 +12,12 @@ header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:20p
 #title{font-size:26px;font-weight:700;background:none;border:none;color:var(--txt);border-bottom:2px solid var(--accent);padding:4px 8px;min-width:260px}
 button{background:var(--panel);color:var(--txt);border:1px solid var(--line);border-radius:6px;padding:8px 14px;cursor:pointer;font-size:13px}
 button:hover{border-color:var(--accent);color:var(--accent)}
-.board{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:18px}
+.board{display:grid;grid-template-columns:repeat(var(--cols,4),1fr);gap:18px}
+.grid-ctl{font-size:12px;color:var(--dim);display:flex;align-items:center;gap:6px}
+.grid-ctl select{background:var(--panel);color:var(--txt);border:1px solid var(--line);border-radius:6px;padding:7px 8px;font-size:13px;cursor:pointer}
+.grid-ctl select:hover{border-color:var(--accent)}
+@media(max-width:1100px){.board{grid-template-columns:repeat(min(var(--cols,4),2),1fr)}}
+@media(max-width:640px){.board{grid-template-columns:1fr}}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px}
 .card h3{font-size:13px;color:var(--accent);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
 .card h3 .ops button{padding:2px 8px;font-size:12px;margin-left:4px}

@@ -2,13 +2,13 @@
 
 A zero-dependency, browser-based storyboard app for film pre-production. Draw frames, set shot specs (size / lens / movement / duration), write action and dialogue notes, reorder shots, and export the whole board — all in a single static page. No build step, no backend, no account.
 
-Built as part of the **CiniAssist** pipeline (script → storyboard → shoot → DaVinci Resolve edit/grade/deliver).
 
 ## Features
 
 - **Sketch on every frame** — pen/eraser with brush size, mouse and touch support, 16:9 canvas per shot
 - **Shot metadata** — size (ECU…EWS, OTS, POV, SCREEN), lens, camera move, duration, action notes, dialogue/sound
 - **Reorder / duplicate / delete** panels
+- **Adjustable grid** — 2, 3 or 4 panels per row (default 4); remembered between sessions
 - **Autosave** — board persists in the browser (localStorage)
 - **Project files** — Export/Import as `.json` to archive boards or move between machines/projects
 - **PDF output** — Print → Save as PDF gives a clean printable board (2 panels per row)
