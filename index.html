@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Storyboard Tool — draw, plan and export film storyboards in the browser.">
+  <title>Storyboard Tool</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<header>
+  <input id="title" value="Untitled Project" title="Project title">
+  <button onclick="addPanel()">+ Add panel</button>
+  <button onclick="exportJSON()">Export project (.json)</button>
+  <button onclick="document.getElementById('importFile').click()">Import project</button>
+  <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(event)">
+  <button onclick="window.print()">Print / Save as PDF</button>
+  <button onclick="newProject()">New project</button>
+</header>
+<div class="hint">Draw directly on each frame (mouse or touch). Everything autosaves in this browser.
+Export JSON to archive or move a project; Import to load it back. Print = PDF storyboard.</div>
+<div class="board" id="board"></div>
+<footer>Storyboard Tool · CiniAssist</footer>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

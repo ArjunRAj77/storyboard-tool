@@ -1,0 +1,19 @@
+{
+  "title": "PLAYBACK",
+  "panels": [
+    {"shot":"1","size":"WS","lens":"24mm","move":"Locked","dur":"6s","notes":"Dark edit room. Monitor is the only light. Alex small in frame. Opening image.","dialogue":"Room tone. Timeline scrub clicks.","img":null},
+    {"shot":"2","size":"SCREEN","lens":"—","move":"—","dur":"6s","notes":"Clip 01: empty street at dusk. Plays 4s too long — stillness is the hook.","dialogue":"Wind in trees (in-clip).","img":null},
+    {"shot":"3","size":"CU","lens":"50mm","move":"Locked","dur":"3s","notes":"Alex frowns. Monitor glow on face. Inciting moment.","dialogue":"","img":null},
+    {"shot":"4","size":"SCREEN","lens":"—","move":"Punch-in","dur":"5s","notes":"Zoom 400%: figure under streetlight, facing lens. Barely human-shaped, degraded.","dialogue":"ALEX (quiet): ...the hell.","img":null},
+    {"shot":"5","size":"SCREEN","lens":"—","move":"—","dur":"4s","notes":"Clip 02: parking lot. Same figure. Closer. Same stance.","dialogue":"","img":null},
+    {"shot":"6","size":"ECU","lens":"75mm","move":"Locked","dur":"3s","notes":"Metadata: Created TODAY 11:58 PM. Wall clock reads 11:54. The impossible detail.","dialogue":"","img":null},
+    {"shot":"7","size":"SCREEN","lens":"—","move":"—","dur":"4s","notes":"Clip 03: figure mid-ground. Face = compression artifacts. Hold uncomfortably.","dialogue":"","img":null},
+    {"shot":"8","size":"CU","lens":"75mm","move":"Locked","dur":"4s","notes":"Hand hovers over Clip 04. Shallow focus. The choice. Slowest cut in the film.","dialogue":"Single mouse click.","img":null},
+    {"shot":"9","size":"SCREEN","lens":"—","move":"—","dur":"4s","notes":"Clip 04: HIS hallway. Figure at the far end. Geography collapses — the footage is here.","dialogue":"","img":null},
+    {"shot":"10","size":"OTS","lens":"35mm","move":"Slow pan","dur":"6s","notes":"Alex turns to the REAL doorway: empty. Match Shot 9 composition exactly.","dialogue":"Silence. He exhales.","img":null},
+    {"shot":"11","size":"SCREEN","lens":"—","move":"—","dur":"4s","notes":"Monitor now shows a LIVE feed of this room from behind his chair.","dialogue":"","img":null},
+    {"shot":"12","size":"SCREEN","lens":"—","move":"—","dur":"4s","notes":"On-screen: the figure steps into frame behind the chair. One clean step. No sting.","dialogue":"Total silence.","img":null},
+    {"shot":"13","size":"ECU","lens":"75mm","move":"Locked","dur":"4s","notes":"His eyes lift to the dead monitor's bezel — reflected silhouette behind him. He knows.","dialogue":"","img":null},
+    {"shot":"14","size":"WS","lens":"24mm","move":"Locked","dur":"5s","notes":"Same frame as Shot 1. Monitor light dies. Black. Final image mirrors opening — room now occupied.","dialogue":"One timeline 'click'.","img":null}
+  ]
+}

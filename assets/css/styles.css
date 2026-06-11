@@ -1,0 +1,39 @@
+:root{
+  --bg:#0e1115;
+  --panel:#161a20;
+  --line:#2a313a;
+  --txt:#c8cfd6;
+  --dim:#7c8690;
+  --accent:#39c0d4;
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',system-ui,sans-serif}
+body{background:var(--bg);color:var(--txt);padding:24px}
+header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:20px}
+#title{font-size:26px;font-weight:700;background:none;border:none;color:var(--txt);border-bottom:2px solid var(--accent);padding:4px 8px;min-width:260px}
+button{background:var(--panel);color:var(--txt);border:1px solid var(--line);border-radius:6px;padding:8px 14px;cursor:pointer;font-size:13px}
+button:hover{border-color:var(--accent);color:var(--accent)}
+.board{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:18px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px}
+.card h3{font-size:13px;color:var(--accent);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.card h3 .ops button{padding:2px 8px;font-size:12px;margin-left:4px}
+canvas{width:100%;aspect-ratio:16/9;background:#0a0d10;border:1px solid var(--line);border-radius:6px;cursor:crosshair;touch-action:none}
+.tools{display:flex;gap:6px;margin:6px 0;align-items:center;flex-wrap:wrap}
+.tools button.active{border-color:var(--accent);color:var(--accent)}
+.meta{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;margin-top:6px}
+.meta label{font-size:10px;color:var(--dim);display:block;text-transform:uppercase;letter-spacing:.5px}
+.meta input,.meta select,textarea{width:100%;background:#0a0d10;border:1px solid var(--line);border-radius:5px;color:var(--txt);padding:5px;font-size:12px}
+textarea{margin-top:6px;resize:vertical;min-height:44px}
+.hint{color:var(--dim);font-size:12px;margin:14px 0}
+input[type=range]{width:80px}
+footer{margin-top:28px;color:var(--dim);font-size:11px;text-align:center}
+
+@media print{
+  body{background:#fff;color:#000;padding:0}
+  header,.tools,.ops,.hint,footer{display:none!important}
+  .board{grid-template-columns:1fr 1fr;gap:10px}
+  .card{border:1px solid #999;background:#fff;page-break-inside:avoid}
+  .card h3{color:#000}
+  canvas{border:1px solid #999;background:#fff}
+  .meta input,.meta select,textarea{background:#fff;color:#000;border:1px solid #ccc}
+  .meta label{color:#555}
+}
