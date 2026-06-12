@@ -4,6 +4,8 @@ A zero-dependency, browser-based storyboard app for film pre-production. Draw fr
 
 Link : [Storyboard Tool ](https://storyboard-tool-seven.vercel.app/)
 
+<img width="1894" height="942" alt="image" src="https://github.com/user-attachments/assets/2cea6e25-f85e-4437-acf1-863ff4e06cfc" />
+
 ## Features
 
 - **Sketch on every frame** — pen/eraser with brush size, mouse and touch support, 16:9 canvas per shot
