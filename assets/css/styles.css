@@ -66,12 +66,13 @@ body{background:var(--bg);background-image:var(--bg-grad);background-attachment:
 /* ---------- canvas frame ---------- */
 .frame{position:relative;border-radius:var(--r-sm);overflow:hidden;border:1px solid var(--line);background:#070a0d}
 canvas{display:block;width:100%;aspect-ratio:16/9;cursor:crosshair;touch-action:none}
+.frame.erase canvas{cursor:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 24 24'><path d='M5 14l6-6 7 7-4 4H9z' fill='%23fff' stroke='%23111' stroke-width='1.4' stroke-linejoin='round'/><path d='M9 19h10' stroke='%23111' stroke-width='1.4' stroke-linecap='round'/></svg>") 6 18, cell}
 .overlay{position:absolute;inset:0;pointer-events:none}
 .overlay .ln{position:absolute;background:rgba(255,255,255,.06)}
 .overlay .v1{left:33.33%;top:0;bottom:0;width:1px}.overlay .v2{left:66.66%;top:0;bottom:0;width:1px}
 .overlay .h1{top:33.33%;left:0;right:0;height:1px}.overlay .h2{top:66.66%;left:0;right:0;height:1px}
 .overlay .safe{position:absolute;inset:7% 6%;border:1px dashed rgba(255,255,255,.07);border-radius:3px}
-.placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:8px;color:var(--faint);font-size:12.5px;letter-spacing:.3px;transition:opacity .2s}
+.placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:8px;color:var(--faint);font-size:12.5px;letter-spacing:.3px;transition:opacity .2s;pointer-events:none}
 .placeholder svg{width:16px;height:16px}
 .frame.inked .placeholder{opacity:0}
 
@@ -115,14 +116,17 @@ footer{margin-top:32px;color:var(--faint);font-size:11px;text-align:center;lette
 .print-masthead .pm-r{text-align:right;font-size:12px;color:#444;line-height:1.5}
 
 @media print{
-  body{background:#fff;color:#000;padding:0}
+  body{background:#fff;color:#000;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .topbar,.tools,.ops,.hint,.placeholder,.overlay,.grid-ctl,.brush,.swatches,.seg,footer{display:none!important}
   .board{grid-template-columns:1fr 1fr;gap:12px}
   .card{border:1px solid #bbb;background:#fff;box-shadow:none;page-break-inside:avoid;transform:none}
   .card::before{display:none}
   .badge{color:#000;background:#eee;border-color:#ccc}
   .clabel{color:#444}
-  .frame{border:1px solid #999}
+  /* keep the frame's dark background in print (forced via color-adjust) so the
+     light/colored strokes render in their true colors, exactly as on screen. */
+  .frame{border:1px solid #555;background:#070a0d;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  canvas{filter:none}
   .field{border:1px solid #ddd;background:#fafafa}
   .field label{color:#777}.field input,.field select{color:#000}
   textarea{border:1px solid #ddd;color:#000;background:#fff}

@@ -85,7 +85,7 @@ function render(){
           <button class="del" onclick="delPanel(${i})" title="Delete"><svg viewBox="0 0 24 24" fill="none"><path d="M5 7h14M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2m1 0v12a1 1 0 01-1 1H8a1 1 0 01-1-1V7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
         </div>
       </div>
-      <div class="frame${p.img ? ' inked' : ''}">
+      <div class="frame${p.img ? ' inked' : ''}${tool === 'eraser' ? ' erase' : ''}">
         <canvas width="800" height="450"></canvas>
         <div class="overlay"><span class="ln v1"></span><span class="ln v2"></span><span class="ln h1"></span><span class="ln h2"></span><span class="safe"></span></div>
         <div class="placeholder"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20l4-1 9-9a2 2 0 00-3-3l-9 9-1 4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>draw here</div>
