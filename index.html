@@ -33,6 +33,7 @@
     <button class="btn" onclick="document.getElementById('importFile').click()"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21V9m0 12l-4-4m4 4l4-4M5 5h14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>Import</button>
     <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(event)">
     <button class="btn" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none"><path d="M6 9V3h12v6M6 18H4v-7h16v7h-2M8 14h8v7H8z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Print / PDF</button>
+    <button class="btn" onclick="resetBoard()" title="Clear all sketches & reference images (keeps shots and specs)"><svg viewBox="0 0 24 24" fill="none"><path d="M3 12a9 9 0 109-9 9 9 0 00-6.4 2.6L3 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M3 4v4h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Reset</button>
     <button class="btn ghost" onclick="newProject()">New</button>
     <span class="grid-ctl">Grid
       <select id="gridSize" onchange="setGrid(+this.value)">
@@ -51,6 +52,18 @@
 
 <div class="board" id="board"></div>
 <footer>Storyboard Tool · CiniAssist</footer>
+
+<!-- themed confirm / alert dialog (replaces native confirm/alert) -->
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="modal-card" role="alertdialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalMsg">
+    <h2 id="modalTitle"></h2>
+    <p id="modalMsg"></p>
+    <div class="modal-actions">
+      <button class="btn" id="modalCancel">Cancel</button>
+      <button class="btn primary" id="modalOk">Confirm</button>
+    </div>
+  </div>
+</div>
 
 <script src="assets/js/app.js"></script>
 </body>

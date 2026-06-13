@@ -27,6 +27,8 @@ body{background:var(--bg);background-image:var(--bg-grad);background-attachment:
 .chip b{font-family:var(--disp);font-variant-numeric:tabular-nums;color:var(--amber);font-size:14px}
 .save-dot{width:7px;height:7px;border-radius:50%;background:#3ad17f;box-shadow:0 0 0 3px rgba(58,209,127,.18);transition:opacity .3s}
 .chip.saving .save-dot{background:var(--amber);box-shadow:0 0 0 3px rgba(224,164,88,.18)}
+.chip.warn{color:var(--danger);border-color:rgba(224,96,95,.4)}
+.chip.warn .save-dot{background:var(--danger);box-shadow:0 0 0 3px rgba(224,96,95,.2)}
 
 .btn{font-family:var(--ui);background:var(--panel);color:var(--txt);border:1px solid var(--line);border-radius:var(--r-sm);padding:8px 13px;cursor:pointer;font-size:13px;font-weight:500;display:inline-flex;align-items:center;gap:7px;transition:.16s}
 .btn svg{width:15px;height:15px;opacity:.8}
@@ -65,16 +67,35 @@ body{background:var(--bg);background-image:var(--bg-grad);background-attachment:
 
 /* ---------- canvas frame ---------- */
 .frame{position:relative;border-radius:var(--r-sm);overflow:hidden;border:1px solid var(--line);background:#070a0d}
-canvas{display:block;width:100%;aspect-ratio:16/9;cursor:crosshair;touch-action:none}
+canvas{display:block;width:100%;aspect-ratio:16/9;cursor:crosshair;touch-action:none;position:relative;z-index:2}
 .frame.erase canvas{cursor:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 24 24'><path d='M5 14l6-6 7 7-4 4H9z' fill='%23fff' stroke='%23111' stroke-width='1.4' stroke-linejoin='round'/><path d='M9 19h10' stroke='%23111' stroke-width='1.4' stroke-linecap='round'/></svg>") 6 18, cell}
-.overlay{position:absolute;inset:0;pointer-events:none}
+
+/* reference photo layer: behind the ink canvas by default, optionally over it */
+.frame .photo{position:absolute;left:0;top:0;width:100%;height:auto;z-index:1;pointer-events:none;user-select:none;-webkit-user-drag:none}
+.frame.photofront .photo{z-index:4}
+.frame.editphoto canvas{pointer-events:none}
+.frame.editphoto .photo{pointer-events:auto;outline:2px dashed var(--accent);outline-offset:-1px;cursor:move;z-index:5}
+.phandle{position:absolute;width:15px;height:15px;margin:-8px 0 0 -8px;border:2px solid var(--accent);background:var(--bg);border-radius:3px;z-index:6;cursor:nwse-resize;pointer-events:auto}
+
+.overlay{position:absolute;inset:0;pointer-events:none;z-index:3}
 .overlay .ln{position:absolute;background:rgba(255,255,255,.06)}
 .overlay .v1{left:33.33%;top:0;bottom:0;width:1px}.overlay .v2{left:66.66%;top:0;bottom:0;width:1px}
 .overlay .h1{top:33.33%;left:0;right:0;height:1px}.overlay .h2{top:66.66%;left:0;right:0;height:1px}
 .overlay .safe{position:absolute;inset:7% 6%;border:1px dashed rgba(255,255,255,.07);border-radius:3px}
-.placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:8px;color:var(--faint);font-size:12.5px;letter-spacing:.3px;transition:opacity .2s;pointer-events:none}
+.placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:8px;color:var(--faint);font-size:12.5px;letter-spacing:.3px;transition:opacity .2s;pointer-events:none;z-index:3}
 .placeholder svg{width:16px;height:16px}
-.frame.inked .placeholder{opacity:0}
+.frame.inked .placeholder,.frame.hasphoto .placeholder{opacity:0}
+
+/* reference-photo control bar (shown only when a panel has a photo) */
+.photobar{display:flex;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap}
+.pbtn{background:var(--panel);border:1px solid var(--line);color:var(--dim);border-radius:7px;padding:5px 10px;font-size:11.5px;font-family:var(--ui);font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:.14s}
+.pbtn svg{width:13px;height:13px}
+.pbtn:hover{border-color:var(--accent-line);color:var(--txt-strong)}
+.pbtn.on{background:var(--accent-soft);border-color:var(--accent-line);color:var(--accent)}
+.pbtn.del{margin-left:auto;padding:5px 8px}
+.pbtn.del:hover{color:var(--danger);border-color:rgba(224,96,95,.4);background:rgba(224,96,95,.08)}
+.popacity{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--faint)}
+.popacity input[type=range]{width:64px}
 
 /* ---------- draw toolbar ---------- */
 .tools{display:flex;align-items:center;gap:10px;margin:11px 0 12px;flex-wrap:wrap}
@@ -110,6 +131,21 @@ textarea::placeholder{color:var(--faint)}
 
 footer{margin-top:32px;color:var(--faint);font-size:11px;text-align:center;letter-spacing:.5px}
 
+/* ---------- themed dialog (custom confirm / alert) ---------- */
+.modal{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(6,8,11,.66);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.modal.open{display:flex;animation:mfade .15s ease}
+@keyframes mfade{from{opacity:0}to{opacity:1}}
+.modal-card{width:min(430px,100%);background:linear-gradient(180deg,var(--panel-hi),var(--panel));border:1px solid var(--line);border-radius:var(--r);padding:22px 22px 18px;box-shadow:0 24px 60px -20px rgba(0,0,0,.8),inset 0 1px 0 var(--line-soft);animation:mpop .17s cubic-bezier(.2,.8,.3,1)}
+@keyframes mpop{from{transform:translateY(8px) scale(.98);opacity:0}to{transform:none;opacity:1}}
+.modal-card h2{font-family:var(--disp);font-size:17px;font-weight:600;color:var(--txt-strong);margin-bottom:9px}
+.modal-card p{font-size:13.5px;line-height:1.55;color:var(--dim);margin-bottom:20px;white-space:pre-line}
+.modal-actions{display:flex;justify-content:flex-end;gap:10px}
+.modal-actions .btn{padding:8px 16px}
+.modal-actions .btn:hover{transform:none}
+.btn.danger{background:rgba(224,96,95,.14);border-color:rgba(224,96,95,.5);color:var(--danger)}
+.btn.danger:hover{background:rgba(224,96,95,.24);border-color:var(--danger);color:#fff}
+.modal.alert .modal-actions .btn#modalCancel{display:none}
+
 /* ---------- print masthead ---------- */
 .print-masthead{display:none;justify-content:space-between;align-items:flex-end;border-bottom:2px solid #000;padding:0 0 8px;margin:0 0 14px}
 .print-masthead h1{font-family:var(--disp);font-size:26px}
@@ -117,7 +153,8 @@ footer{margin-top:32px;color:var(--faint);font-size:11px;text-align:center;lette
 
 @media print{
   body{background:#fff;color:#000;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .topbar,.tools,.ops,.hint,.placeholder,.overlay,.grid-ctl,.brush,.swatches,.seg,footer{display:none!important}
+  .topbar,.tools,.ops,.hint,.placeholder,.overlay,.grid-ctl,.brush,.swatches,.seg,.photobar,.phandle,.modal,footer{display:none!important}
+  .frame .photo{outline:none!important}
   .board{grid-template-columns:1fr 1fr;gap:12px}
   .card{border:1px solid #bbb;background:#fff;box-shadow:none;page-break-inside:avoid;transform:none}
   .card::before{display:none}
