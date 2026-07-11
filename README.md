@@ -1,25 +1,82 @@
-# Storyboard Tool
+<div align="center">
 
-A zero-dependency, browser-based storyboard app for film pre-production. Draw frames, set shot specs (size / lens / movement / duration), write action and dialogue notes, reorder shots, and export the whole board — all in a single static page. No build step, no backend, no account.
+# 🎬 Storyboard Tool
 
-Link : [Storyboard Tool ](https://storyboard-tool-seven.vercel.app/)
+**Browser-based storyboarding for film pre-production**
 
+*Draw it before you shoot it.*
+
+Sketching · reference images · shot specs · runtime totals · drag-to-reorder · JSON project files · print-ready PDF — all in one static page. No build step, no backend, no account.
+
+`HTML` · `CSS` · `Vanilla JS` · `Canvas API` · `localStorage` · `Zero dependencies`
+
+**[Live app →](https://storyboard-tool-seven.vercel.app/)**
+
+</div>
+
+---
 <img width="1895" height="938" alt="image" src="https://github.com/user-attachments/assets/3e87fb9d-9f7f-4131-bf57-38949232641c" />
 
+## Table of contents
+
+1. [Features](#features)
+2. [Quick start](#quick-start)
+3. [Deploying to Vercel](#deploying-to-vercel)
+4. [Folder structure](#folder-structure)
+5. [Project file format](#project-file-format)
+6. [Reference images](#reference-images)
+7. [Reusing for a new film](#reusing-for-a-new-film)
+8. [Troubleshooting](#troubleshooting)
+9. [Notes & limits](#notes--limits)
+10. [License](#license)
+
+---
 
 ## Features
 
-- **Sketch on every frame** — pen (5 colours) / eraser with brush size, mouse and touch support, 16:9 canvas per shot, rule-of-thirds + title-safe guides
-- **Reference images** — drop a file on a frame, use the image button, or paste from the clipboard; move/resize, set opacity, and choose whether it sits behind or over your sketch (see [Reference images](#reference-images))
-- **Shot metadata** — size (ECU…EWS, OTS, POV, SCREEN), lens, camera move, duration, action notes, dialogue/sound (lens & move have autocomplete presets)
-- **Runtime total** — header sums every shot's duration
-- **Reorder / duplicate / delete** panels — drag the shot-number badge to reorder
-- **Reset** — one click (with a confirm dialog) clears every sketch and reference image while keeping the shot list and specs; **New** wipes the whole board to a blank project
-- **Adjustable grid** — 2, 3 or 4 panels per row (default 4); remembered between sessions
-- **Autosave** — board persists in the browser (localStorage), with a status indicator that warns if storage is full
-- **Project files** — Export/Import as `.json` to archive boards or move between machines/projects (imports are validated and normalized)
-- **PDF output** — Print → Save as PDF gives a clean printable board with a project masthead (2 panels per row), preserving sketch colours and reference images
-- **Example project** — loads `examples/playback.json` (the micro-short *PLAYBACK*, 14 shots) on first visit
+- **Sketch on every frame** — pen (5 colours) / eraser with brush size, mouse and touch support, 16:9 canvas per shot, rule-of-thirds + title-safe guides.
+- **Reference images** — drop a file on a frame, use the image button, or paste from the clipboard; move/resize, set opacity, and choose whether it sits behind or over your sketch (see [Reference images](#reference-images)).
+- **Shot metadata** — size (ECU…EWS, OTS, POV, SCREEN), lens, camera move, duration, action notes, dialogue/sound (lens & move have autocomplete presets).
+- **Runtime total** — the header sums every shot's duration.
+- **Reorder / duplicate / delete** panels — drag the shot-number badge to reorder.
+- **Reset & New** — Reset (with a confirm dialog) clears every sketch and reference image while keeping the shot list and specs; **New** wipes the whole board to a blank project.
+- **Adjustable grid** — 2, 3 or 4 panels per row (default 4); remembered between sessions.
+- **Autosave** — board persists in the browser (localStorage), with a status indicator that warns if storage is full.
+- **Project files** — Export/Import as `.json` to archive boards or move between machines/projects (imports are validated and normalized).
+- **PDF output** — Print → Save as PDF gives a clean printable board with a project masthead (2 panels per row), preserving sketch colours and reference images.
+- **Example project** — loads `examples/playback.json` (the micro-short *PLAYBACK*, 14 shots) on first visit.
+
+## Quick start
+
+**Prerequisites:** a browser. That's it.
+
+**Option A — just open it:** double-click `index.html`.
+(On `file://` the example project can't be fetched; you get a blank board — use Import to load `examples/playback.json`.)
+
+**Option B — serve it** (example loads automatically):
+
+```bash
+cd storyboard-tool
+python -m http.server 8000
+# open http://localhost:8000
+```
+
+No API keys. No environment variables. Nothing leaves your machine.
+
+## Deploying to Vercel
+
+**Option A — CLI** (fastest):
+
+```bash
+npm i -g vercel
+cd storyboard-tool
+vercel          # first deploy (accept defaults — it's detected as a static site)
+vercel --prod   # production deploy
+```
+
+**Option B — Git:** push this folder to a GitHub/GitLab/Bitbucket repo → import it at [vercel.com/new](https://vercel.com/new) → Framework preset: **Other** → no build command, output directory: root → Deploy.
+
+Every push to the main branch redeploys automatically. `vercel.json` ships the static config plus security headers.
 
 ## Folder structure
 
@@ -36,34 +93,6 @@ storyboard-tool/
 ├── .gitignore
 └── README.md
 ```
-
-## Run locally
-
-Option A — just open it: double-click `index.html`.
-(On `file://` the example project can't be fetched; you get a blank board — use Import to load `examples/playback.json`.)
-
-Option B — serve it (example loads automatically):
-
-```bash
-cd storyboard-tool
-python -m http.server 8000
-# open http://localhost:8000
-```
-
-## Deploy to Vercel
-
-**Via CLI** (fastest):
-
-```bash
-npm i -g vercel
-cd storyboard-tool
-vercel          # first deploy (accept defaults — it's detected as a static site)
-vercel --prod   # production deploy
-```
-
-**Via Git**: push this folder to a GitHub/GitLab/Bitbucket repo → [vercel.com/new](https://vercel.com/new) → Import the repo → Framework preset: **Other** → no build command, output directory: root → Deploy.
-
-Every push to the main branch redeploys automatically.
 
 ## Project file format
 
@@ -91,10 +120,16 @@ Every push to the main branch redeploys automatically.
 }
 ```
 
-- `img` stores the **sketch** as a transparent PNG data-URL.
-- `photo` (optional, `null` when absent) stores a **reference image** plus its placement: `ar` is the image aspect ratio; `x`/`y`/`scale` are fractions of the frame (resolution-independent); `opacity` 0.1–1; `behind` puts it under (`true`) or over (`false`) the sketch.
+| Field | Meaning |
+|---|---|
+| `img` | The **sketch** as a transparent PNG data-URL |
+| `photo` | Optional (`null` when absent) — a **reference image** plus its placement |
+| `photo.ar` | Image aspect ratio |
+| `photo.x` / `y` / `scale` | Placement as fractions of the frame (resolution-independent) |
+| `photo.opacity` | 0.1–1 |
+| `photo.behind` | `true` = under the sketch, `false` = over it |
 
-Both are embedded data-URLs, so exported JSON files are fully self-contained. On import the file is validated (it must have a `panels` array) and every field is normalized, so older files (no `photo`) and hand-edited files load safely. Unknown fields (e.g. a legacy `shot`) are ignored.
+Both images are embedded data-URLs, so exported JSON files are fully self-contained. On import the file is validated (it must have a `panels` array) and every field is normalized, so older files (no `photo`) and hand-edited files load safely. Unknown fields (e.g. a legacy `shot`) are ignored.
 
 ## Reference images
 
@@ -118,6 +153,17 @@ Each panel can hold one reference image — a location photo, a frame grab, a li
 3. **Export project (.json)** → keep it next to your script in the project folder
 4. Re-import any time to continue
 
+## Troubleshooting
+
+| Symptom | Likely cause / fix |
+|---|---|
+| Blank board on first open | You opened via `file://` — the example project can't be fetched. Serve the folder (`python -m http.server`) or use Import to load `examples/playback.json`. |
+| *"Not saved — storage full"* indicator | The board exceeds the browser's localStorage budget (~5MB). Export the `.json`, then trim panels or drop a few reference images. |
+| Board missing after switching browsers | Autosave is per-browser. Export/Import the `.json` to move boards between machines or browsers. |
+| Paste doesn't add an image | Paste targets the panel you last drew on — click/draw in the intended panel first, then Ctrl/Cmd-V. |
+| Can't draw over a reference image | **Edit** mode is on (drawing pauses while positioning). Toggle Edit off to resume sketching. |
+| PDF looks cramped | Print output intentionally uses 2 panels per row for readability, regardless of the on-screen grid. |
+
 ## Notes & limits
 
 - Autosave is per-browser (localStorage, ~5MB). Export JSON for anything you can't afford to lose — the indicator warns when a board no longer fits.
@@ -127,3 +173,7 @@ Each panel can hold one reference image — a location photo, a frame grab, a li
 ## License
 
 MIT — use it on any production.
+
+---
+
+<div align="center">Made by <strong>AJ</strong></div>
